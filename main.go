@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	fileName := "SRV_LINEAS.DAT"
+	fileName := "./files/SRV_LINEAS.DAT"
 
 	fmt.Println(time.Now())
 	content, err := ioutil.ReadFile(fileName)
@@ -20,12 +20,18 @@ func main() {
 	copy(originalLines, lines[:])
 	fmt.Println(len(originalLines))
 	fmt.Println(cap(originalLines))
-	fmt.Println(originalLines[1100:1110])
+	// tamaño de chunk
+	chunk := 10000
+	inicio := 0
+	fin := 10000
+	cantidadChunk := len(originalLines) / chunk
+	for i := 1; i <= cantidadChunk; i++ {
+		fmt.Println(originalLines[inicio:fin])
+		inicio = fin + 1
+		fin += fin
+	}
+	fmt.Println(originalLines[inicio:len(originalLines)-1])
 	fmt.Println(time.Now())
-	//for index := 0; index < len(lines); index++ {
-	//fmt.Println(lines[index])
-	//}
-
 	/*
 		f, _ := os.Open(fileName)
 		// Create new Scanner.
